@@ -1,0 +1,36 @@
+<search />
+<!-- 轮播图 -->
+<swiper class="swiper" indicator-dots="{{ indicatordots }}" indicator-active-color="{{indicatoractivecolor}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{ swiperImages }}" wx:key="goods_id">
+    <swiper-item class="swiper-item">
+      <navigator url="{{ item.navigator_url }}"></navigator>
+      <image src="{{ item.image_src }}" made="widthFix"></image>
+    </swiper-item>
+  </block>
+</swiper>
+<!-- 导航 -->
+<view class="narver">
+  <block class="narver-item" wx:for="{{ categorical }}" wx:key="name">
+    <navigator url="{{ item.navigator_url }}"></navigator>
+    <image src="{{ item.image_src }}" mode="widthFix"></image>
+  </block>
+</view>
+<!-- 楼层 -->
+<!-- 外层循环楼层 -->
+<block wx:for="{{ womenswear }}" wx:key="*this">
+  <view class="floor-title">
+    <image mode="widthFix" src="{{ item.floor_title.image_src }}"></image>
+  </view>
+  <view class="floor-body">
+  <!-- 里层循环图片列表 -->
+    <block wx:for="{{ item.product_list }}" wx:key="image_src" wx:for-item="item2">
+       <navigator open-type="{{ item2.open_type }}" url="{{ item2.navigator_url }}">
+        <image lazy-load style="width:{{ item2.image_width }}rpx;" src="{{ item2.image_src }}"></image>
+      </navigator>
+    </block>
+  </view>
+</block>
+<!-- 返回顶部 -->
+<view class="to-top" bind:tap="toTap">
+  <text>顶部</text>
+</view>

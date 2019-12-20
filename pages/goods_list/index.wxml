@@ -1,0 +1,9 @@
+<search/>
+<narvertab/>
+<block wx:for="{{ productlist }}" wx:key="goods_id">
+<navigator url="">
+    <view>
+        
+    </view>
+</navigator>
+</block>

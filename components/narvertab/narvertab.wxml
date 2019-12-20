@@ -1,0 +1,8 @@
+<view class="narver-title">
+  <view class="narver-title01">综合</view>
+  <view class="narver-title02">销量</view>
+  <view class="narver-title03">
+    价格
+    <view class="iconfont icon-shangxiajiantou"></view>
+  </view>
+</view>

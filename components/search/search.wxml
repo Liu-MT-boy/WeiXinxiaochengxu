@@ -1,0 +1,6 @@
+<navigator class="search" url="/pages/">
+  <view class="search-item">
+    <icon class="search-icon" color="#ccc" type="search"></icon>
+    <text class="search-text">搜索</text>
+  </view>
+</navigator>

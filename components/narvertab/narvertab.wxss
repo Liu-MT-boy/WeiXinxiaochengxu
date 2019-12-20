@@ -1,0 +1,28 @@
+.narver-title {
+  display: flex;
+  border-bottom:1px solid #dddddd;
+}
+.narver-title01{
+  width: 33.3%;
+  height: 100rpx;
+  background-color: #fff;
+  line-height: 100rpx;
+  text-align: center;
+
+}
+
+.narver-title02{
+  width: 33.3%;
+  height: 100rpx;
+  background-color: #fff;
+  line-height: 100rpx;
+  text-align: center;
+}
+
+.narver-title03{
+  width: 33.3%;
+  height: 100rpx;
+  background-color: #fff;
+  line-height: 100rpx;
+  text-align: center;
+}

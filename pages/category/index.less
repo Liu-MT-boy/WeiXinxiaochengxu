@@ -1,0 +1,74 @@
+  // 左边
+.category {
+  display: flex;
+}
+
+.category-left {
+  width: 200rpx;
+  height: ~ 'calc(100vh - 100rpx)';
+}
+
+.subjectleft {
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1rpx solid #ddd;
+  background-color: #f4f4f4;
+}
+// 左侧选中状态的类名
+.subjectleft.on {
+  color: #f00;
+  font-weight: bold;
+  position: relative;
+  background-color: #fff;
+
+  // 修饰前面的红色小方块
+  &::before {
+    content: "";
+    width: 10rpx;
+    position: absolute;
+    left: 0rpx;
+    // 没有设置高度，通过定位的 top，bottom 同时作用拉伸一个高度
+    top: 15rpx;
+    bottom: 15rpx;
+    background-color: #f00;
+  }
+}
+
+//  右边
+.category-right {
+  flex: 1;
+  height: ~ 'calc(100vh - 100rpx)';
+}
+
+.title-cat-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &::after,
+  &::before {
+    content: "/";
+    color: #ccc;
+    margin:0 15rpx;
+  }
+}
+
+.cate-right-body {
+  display: flex;
+  // flex 换行
+  flex-wrap: wrap;
+}
+
+.classifyRight-item {
+  width: 33%;
+  display: flex;
+  justify-content: center;  // 垂直方向居中
+  align-items: center;  // 水平方向居中
+  // flex 垂直排列
+  flex-direction: column;
+}
+
+.classifyRight-item image {
+  width: 70%;
+}
