@@ -33,8 +33,15 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
+  async onLoad() {
     if (this.data.classify.length === 0) {
+      const classify = await app.myAxios({url:'categories'})
+      const classifyRight = classify[0].children;
+      // ✅ 小程序的本地存储写法
+      wx.setStorageSync('classify', classify);
+      wx.setStorageSync('classifyRight', classifyRight);
+
+      this.setData({classify,classifyRight})
       //  这是原来的方法
       //   wx.request({
       //     url: 'https://api.zbztb.cn/api/public/v1/categories',
@@ -51,22 +58,22 @@ Page({
       //   })
       // }
       //  这是引入myAxios
-      myAxios({
-        url: 'categories',
-      }).then(res => {
-        console.log(res);
-        // 现在的 res 就是 之前的 res.data.message 
-        const classify =  res;
-        const classifyRight = classify[0].children;
-        // ✅ 小程序的本地存储写法
-        wx.setStorageSync('classify', classify);
-        wx.setStorageSync('classifyRight', classifyRight);
-        // 异步版本 - 了解
-        this.setData({
-          classify,
-          classifyRight
-        });
-      })
+      // myAxios({
+      //   url: 'categories',
+      // }).then(res => {
+      //   console.log(res);
+      //   // 现在的 res 就是 之前的 res.data.message 
+      //   const classify =  res;
+      //   const classifyRight = classify[0].children;
+      //   // ✅ 小程序的本地存储写法
+      //   wx.setStorageSync('classify', classify);
+      //   wx.setStorageSync('classifyRight', classifyRight);
+      //   // 异步版本 - 了解
+      //   this.setData({
+      //     classify,
+      //     classifyRight
+      //   });
+      // })
     }
   }
 })
