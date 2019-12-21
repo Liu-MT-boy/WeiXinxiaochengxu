@@ -1,3 +1,8 @@
+// 引入全局实例
+const app = getApp();
+// 在需要使用到  async await 的 js 中，手动引入 runtime.js， regeneratorRuntime 名字不能改
+import regeneratorRuntime from '../../lib/runtime/runtime'
+
 Page({
 
   /**
@@ -24,82 +29,39 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad () {
-    wx.request({
-      url: 'https://api.zbztb.cn/api/public/v1/home/swiperdata',
-      success:res=>{
-        // console.log(res)
-        this.setData({
-          swiperImages: res.data.message
-        })
-      }
-    }),
-    wx.request({
-      url: 'https://api.zbztb.cn/api/public/v1/home/catitems',
-      success:res=>{
-        // console.log(res)
-        this.setData({
-          categorical:res.data.message
-        })
-      }
-    }),
-    wx.request({
-      url: 'https://api.zbztb.cn/api/public/v1/home/floordata',
-      success:res=>{
-        console.log(res)
-        this.setData({
-          womenswear:res.data.message
-        })
-      }
-    })
-  },
+  async onLoad () {
+    const swiperImages = await app.myAxios({url:'home/swiperdata'});
+    const womenswear = await app.myAxios({url:'home/floordata'});
+    const categorical = await app.myAxios({url:'home/catitems'});
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    
+    this.setData({swiperImages,womenswear,categorical})
+    // wx.request({
+    //   url: 'https://api.zbztb.cn/api/public/v1/home/swiperdata',
+    //   success:res=>{
+    //     // console.log(res)
+    //     this.setData({
+    //       swiperImages: res.data.message
+    //     })
+    //   }
+    // }),
+    // wx.request({
+    //   url: 'https://api.zbztb.cn/api/public/v1/home/floordata',
+    //   success:res=>{
+    //     console.log(res)
+    //     this.setData({
+    //       // 数据统一都是在 res.data.message，后续可以统一封装起来
+    //       womenswear:res.data.message
+    //     })
+    //   }
+    // }),
+    // wx.request({
+    //   url: 'https://api.zbztb.cn/api/public/v1/home/catitems',
+    //   success:res=>{
+    //     // console.log(res)
+    //     this.setData({
+    //       categorical:res.data.message
+    //     })
+    //   }
+    // })
   }
 })

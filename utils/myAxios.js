@@ -2,7 +2,7 @@
 // 项目的根路径
 const baseUrl = 'https://api.zbztb.cn/api/public/v1/';
 // myAxios 函数,parmas 发送请求时传入的参数
-export const myAxios = (promise) => {
+export const myAxios = (params) => {
 
     // 显示数据加载提示框
     wx.showLoading({
