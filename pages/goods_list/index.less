@@ -1,0 +1,19 @@
+// tab 栏
+.tabs {
+    height: 100rpx;
+    display: flex;
+    border-bottom: 1rpx solid #ddd;
+
+    &-item {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.active {
+            color: #eb4450;
+            font-weight: bold;
+            border-bottom: 1rpx solid #eb4450;
+        }
+    }
+}

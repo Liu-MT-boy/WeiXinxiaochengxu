@@ -2,5 +2,8 @@
   "usingComponents": {
     "search":"/components/search/search",
     "narvertab":"/components/narvertab/narvertab"
-  }
+  },
+    "navigationBarTitleText":"列表页",
+    "backgroundTextStyle":"dark",
+    "enablePullDownRefresh": true
 }
