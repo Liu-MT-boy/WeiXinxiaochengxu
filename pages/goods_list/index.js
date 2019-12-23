@@ -87,6 +87,7 @@ Page({
   //     total:res.total
   //   })
   // },
+
   // 下拉事件
   onPullDownRefresh () {
     // 把商品数组清空，把页码重新变成1
@@ -95,7 +96,28 @@ Page({
       pagenum:1
     })
     // 重新调用一下onLoad,重新加载
-    this.onLoad(this.options)
-
+    // this.onLoad(this.options)
+    this.onLoad()
+  },
+  //上拉触底事件
+  onReachBottom () {
+    // !!!总页数公式：Math.ceil( total / pagesize )
+    let { pagenum,pagesize,total } = this.data
+    // 如果当前页小于总页数
+    if (pagenum < Math.ceil( total / pagesize ) ){
+      // pagenum 累加1，再发起请求
+      this.setData({
+        pagenum : ++pagenum
+      })
+      // 根据新的页面调用请求数据
+      this.getList()
+    } else {
+      // 消息提示框 - 查 API 手册
+      wx.showToast({
+        // 提示的内容
+        title: '没有更多数据...',
+        icon: 'none'
+      })
+    }
   }
 })
