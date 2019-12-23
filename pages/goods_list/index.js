@@ -47,14 +47,18 @@ Page({
   },
 
   // 页面加载生命函数
-  async onLoad (options) {
-
-    // 根据参数发送请求
+  // async onLoad (options) {
+  onLoad(options) {
+    // 获取列表数据
+    this.getList()
+  },
+  // 把获取列表的业务封装起来
+  async getList() {
     let {pagenum,pagesize} = this.data
     const res = await app.myAxios({
       url:'goods/search',
       data : {
-        ...options,
+        ...this.options,
         pagenum,
         pagesize
       }
@@ -62,11 +66,27 @@ Page({
     console.log(res);
     // 更新页面的列表，并把总数保存起来用于做分页
     this.setData({
-      goods:res.goods,
-      total:res.total
+      goods : [...this.data.goods,...res.goods],
+      total : res.total
     })
   },
-
+  // 把获取列表的业务封装起来
+  //   let {pagenum,pagesize} = this.data
+  //   const res = await app.myAxios({
+  //     url:'goods/search',
+  //     data : {
+  //       ...options,
+  //       pagenum,
+  //       pagesize
+  //     }
+  //   })
+  //   console.log(res);
+  //   // 更新页面的列表，并把总数保存起来用于做分页
+  //   this.setData({
+  //     goods:res.goods,
+  //     total:res.total
+  //   })
+  // },
   // 下拉事件
   onPullDownRefresh () {
     // 把商品数组清空，把页码重新变成1
