@@ -1,66 +1,24 @@
+// 引入全局实例
+const app = getApp();
+// 在需要使用到  async await 的 js 中，手动引入 runtime.js， regeneratorRuntime 名字不能改
+import regeneratorRuntime, { async } from '../../lib/runtime/runtime'
 // pages/goods_detail/index.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
+  // 页面的初始数据
   data: {
-
+    // 商品详情
+    goods_detail:{}
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+   // 生命周期函数--监听页面加载
+  async onLoad (options) {
+    const res = await app.myAxios({
+      url:'goods/detail',
+      data : options
+    })
+    console.log(res);
+    this.setData({
+      goods_detail : res
+    })
   }
 })

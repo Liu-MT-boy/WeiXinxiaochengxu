@@ -1,2 +1,6 @@
-<!--pages/goods_detail/index.wxml-->
-<text>pages/goods_detail/index.wxml</text>
+<!-- 轮播图 -->
+<swiper class="slider-swiper">
+    <block wx:for="{{ goods_detail }}" wx:key="goods_id">
+        <image src="{{ item.goods_big_logo }}" />
+    </block>
+</swiper>
