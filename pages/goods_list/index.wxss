@@ -14,3 +14,34 @@
   font-weight: bold;
   border-bottom: 1rpx solid #eb4450;
 }
+.product-item {
+  display: flex;
+  padding: 30rpx 0;
+  margin: 0 20rpx;
+  border-bottom: 1rpx solid #ddd;
+}
+.product-item-left {
+  height: 200rpx;
+  width: 200rpx;
+}
+.product-item-right {
+  flex: 1;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.product-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.product-price {
+  color: #eb4450;
+  font-size: 34rpx;
+}
+.product-price::before {
+  content: "￥";
+  font-size: 80%;
+}

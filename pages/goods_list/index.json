@@ -1,7 +1,6 @@
 {
   "usingComponents": {
-    "search":"/components/search/search",
-    "narvertab":"/components/narvertab/narvertab"
+    "search":"/components/search/search"
   },
     "navigationBarTitleText":"列表页",
     "backgroundTextStyle":"dark",
