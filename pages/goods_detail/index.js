@@ -9,7 +9,8 @@ Page({
     // 商品详情
     goods_detail:{}
   },
-
+  // 预览大图的事件
+  
    // 生命周期函数--监听页面加载
   async onLoad (options) {
     const res = await app.myAxios({
