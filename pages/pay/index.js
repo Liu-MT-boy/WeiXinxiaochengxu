@@ -1,7 +1,9 @@
 // 引入全局实例
 const app = getApp();
 // 在需要使用到  async await 的 js 中，手动引入 runtime.js， regeneratorRuntime 名字不能改
-import regeneratorRuntime, { async } from '../../lib/runtime/runtime'
+import regeneratorRuntime, {
+	async
+} from '../../lib/runtime/runtime'
 
 Page({
 
@@ -15,43 +17,73 @@ Page({
 		cartList: [],
 		totalPrice: 0
 	},
-	
-	createOrder(){
-		const { address,cartList,totalPrice } = this.data
-		const goods = cartList.filter(v=>v.goods_selected).map(v=>{
+
+	createOrder() {
+		const {
+			address,
+			cartList,
+			totalPrice
+		} = this.data
+		const goods = cartList.filter(v => v.goods_selected).map(v => {
 			return {
-				goods_id : v.goods_id,
-				goods_number : v.goods_count,
-				goods_price : v.goods_price
+				goods_id: v.goods_id,
+				goods_number: v.goods_count,
+				goods_price: v.goods_price
 			}
 		})
 		// 发送请求
 		return app.myAxios({
-      url:'my/orders/create',
-      method:'post',
-      data:{ 
-        order_price: totalPrice,
-        consignee_addr: address.addressDetail,
-        goods
-     }
-    });
+			url: 'my/orders/create',
+			method: 'post',
+			data: {
+				order_price: totalPrice,
+				consignee_addr: address.addressDetail,
+				goods
+			}
+		});
+	},
+	// 2.准备预支付，获取支付参数
+	unifiedorder(order_number) {
+		return app.myAxios({
+			url: 'my/orders/req_unifiedorder',
+			method: 'post',
+			data: {
+				order_number
+			}
+		});
+	},
+	// 3.发起微信支付
+	wxPay(pay) {
+		return new Promise((resolve, reject) => {
+			wx.requestPayment({
+				...pay,
+				success: res => {
+					resolve(res)
+				},
+				fail: err => {
+					reject(err)
+				}
+			})
+		})
 	},
 
-	unifiedorder(order_number){
-		return app.myAxios({
-      url:'my/orders/req_unifiedorder',
-      method:'post',
-      data:{ 
-        order_number
-     }
-    });
-	},
-	async pay(){
-		// 创建订单，接收返回的订单编号
-		const { order_number } = await this.createOrder()
-		// 准备预支付，获取支付参数
-		const { pay } = await this.unifiedorder(order_number)
-		console.log(pay);
+	// 支付流程
+	async pay() {
+		try {
+			// 1. 创建订单，接收返回的订单编号
+			const { order_number } = await this.createOrder()
+			// 2. 准备预支付，获取支付参数
+			const { pay } = await this.unifiedorder(order_number)
+			console.log(pay);
+			// 3.发起微信支付
+			const res = await this.wxPay(pay)
+		} catch (error) {
+			wx.showToast({
+				title: '支付失败',
+				icon: 'none'
+			});
+		}
+
 	},
 	// 页面开启时运行
 	onShow() {
