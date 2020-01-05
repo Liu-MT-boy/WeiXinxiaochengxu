@@ -49,5 +49,5 @@
 						<view class="total-down">包含运费</view>
 				</view>
 		</view>
-		<view class="bar-btn" bindtap="Pay">支付</view>
+		<view class="bar-btn" bindtap="pay">支付</view>
 </view>

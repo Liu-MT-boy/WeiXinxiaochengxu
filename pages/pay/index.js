@@ -18,7 +18,6 @@ Page({
 	
 	createOrder(){
 		const { address,cartList,totalPrice } = this.data
-
 		const goods = cartList.filter(v=>v.goods_selected).map(v=>{
 			return {
 				goods_id : v.goods_id,
@@ -37,9 +36,22 @@ Page({
      }
     });
 	},
-	async Pay(){
-		const res = await this.createOrder()
-		console.log(res);
+
+	unifiedorder(order_number){
+		return app.myAxios({
+      url:'my/orders/req_unifiedorder',
+      method:'post',
+      data:{ 
+        order_number
+     }
+    });
+	},
+	async pay(){
+		// 创建订单，接收返回的订单编号
+		const { order_number } = await this.createOrder()
+		// 准备预支付，获取支付参数
+		const { pay } = await this.unifiedorder(order_number)
+		console.log(pay);
 	},
 	// 页面开启时运行
 	onShow() {
