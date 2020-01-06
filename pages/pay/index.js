@@ -61,12 +61,23 @@ Page({
 					resolve(res)
 				},
 				fail: err => {
-					reject(err)
+					resolve(err)
 				}
 			})
 		})
 	},
 
+	// 4.让服务器更新订单状态
+	//my/orders/chkOrder
+	chkOrderPay(order_number){
+		return app.myAxios({
+			url: 'my/orders/chkOrder',
+			method: 'post',
+			data: {
+				order_number
+			}
+		});
+	},
 	// 支付流程
 	async pay() {
 		try {
@@ -77,6 +88,23 @@ Page({
 			console.log(pay);
 			// 3.发起微信支付
 			const res = await this.wxPay(pay)
+			console.log(res);
+			// 4.查看订单支付情况
+			const res2 = await this.chkOrderPay(order_number)
+			// console.log(res2);
+			 // 5.1 更新本地存储数据
+			 const { cartList } = this.data;
+			 const newCartList = cartList.filter(v=>!v.goods_selected);
+			 wx.setStorageSync('cartList', newCartList);
+			wx.showToast({
+				title: '支付成功，跳转到首页页面',
+				icon: 'none',
+				success: res=>{
+					wx.redirectTo({
+						url: '/pages/goods_list/index',
+					});
+				}
+			});
 		} catch (error) {
 			wx.showToast({
 				title: '支付失败',
