@@ -1,2 +1,7 @@
-<!--pages/order/index.wxml-->
-<text>pages/order/index.wxml</text>
+<view class="tabs">
+    <block wx:for="{{ tabs }}" wx:key="id">
+        <view bind:tap="changeIndex" data-index="{{ index }}" class="tabs-item {{ activeIndex === index? 'active' : '' }}">
+            {{ item.name }}
+        </view>
+    </block>
+</view>
